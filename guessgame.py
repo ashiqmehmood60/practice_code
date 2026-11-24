@@ -1,0 +1,184 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMfzfZIKcGhf26AbxxhsgcO",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/ashiqmehmood60/practice_code/blob/main/guessgame.py\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "1hUPZf9IRibG",
+        "outputId": "50fe2d29-e5db-4177-b38a-68bfae7813f9"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Collecting streamlit\n",
+            "  Downloading streamlit-1.67.0-py3-none-any.whl.metadata (10 kB)\n",
+            "Requirement already satisfied: altair!=5.4.0,!=5.4.1,<7,>=5.0.0 in /usr/local/lib/python3.13/dist-packages (from streamlit) (5.5.0)\n",
+            "Requirement already satisfied: click<9,>=7.0 in /usr/local/lib/python3.13/dist-packages (from streamlit) (8.5.0)\n",
+            "Requirement already satisfied: numpy<3,>=1.25.0 in /usr/local/lib/python3.13/dist-packages (from streamlit) (2.4.6)\n",
+            "Requirement already satisfied: packaging>=20 in /usr/local/lib/python3.13/dist-packages (from streamlit) (26.3)\n",
+            "Requirement already satisfied: pandas<4,>=1.5.3 in /usr/local/lib/python3.13/dist-packages (from streamlit) (2.2.3)\n",
+            "Requirement already satisfied: pillow<14,>=9.2.0 in /usr/local/lib/python3.13/dist-packages (from streamlit) (11.3.0)\n",
+            "Collecting pydeck<1,>=0.8.0b4 (from streamlit)\n",
+            "  Downloading pydeck-0.9.3-py2.py3-none-any.whl.metadata (4.2 kB)\n",
+            "Requirement already satisfied: protobuf<8,>=5.26.1 in /usr/local/lib/python3.13/dist-packages (from streamlit) (6.33.6)\n",
+            "Requirement already satisfied: pyarrow!=25.0.0,<27,>=12.0.0 in /usr/local/lib/python3.13/dist-packages (from streamlit) (23.0.1)\n",
+            "Requirement already satisfied: requests<3,>=2.27 in /usr/local/lib/python3.13/dist-packages (from streamlit) (2.32.4)\n",
+            "Requirement already satisfied: typing-extensions<5,>=4.10.0 in /usr/local/lib/python3.13/dist-packages (from streamlit) (4.16.0)\n",
+            "Requirement already satisfied: starlette<2,>=0.46.0 in /usr/local/lib/python3.13/dist-packages (from streamlit) (1.10.0)\n",
+            "Requirement already satisfied: uvicorn<1,>=0.30.0 in /usr/local/lib/python3.13/dist-packages (from streamlit) (0.54.0)\n",
+            "Requirement already satisfied: anyio<5,>=4.0.0 in /usr/local/lib/python3.13/dist-packages (from streamlit) (4.16.0)\n",
+            "Requirement already satisfied: python-multipart<1,>=0.0.10 in /usr/local/lib/python3.13/dist-packages (from streamlit) (0.0.33)\n",
+            "Requirement already satisfied: websockets<18,>=12.0.0 in /usr/local/lib/python3.13/dist-packages (from streamlit) (15.0.1)\n",
+            "Requirement already satisfied: itsdangerous<3,>=2.1.2 in /usr/local/lib/python3.13/dist-packages (from streamlit) (2.2.0)\n",
+            "Requirement already satisfied: watchdog<8,>=2.1.5 in /usr/local/lib/python3.13/dist-packages (from streamlit) (6.0.0)\n",
+            "Requirement already satisfied: jinja2 in /usr/local/lib/python3.13/dist-packages (from altair!=5.4.0,!=5.4.1,<7,>=5.0.0->streamlit) (3.1.6)\n",
+            "Requirement already satisfied: jsonschema>=3.0 in /usr/local/lib/python3.13/dist-packages (from altair!=5.4.0,!=5.4.1,<7,>=5.0.0->streamlit) (4.26.0)\n",
+            "Requirement already satisfied: narwhals>=1.14.2 in /usr/local/lib/python3.13/dist-packages (from altair!=5.4.0,!=5.4.1,<7,>=5.0.0->streamlit) (2.28.0)\n",
+            "Requirement already satisfied: idna>=2.8 in /usr/local/lib/python3.13/dist-packages (from anyio<5,>=4.0.0->streamlit) (3.20)\n",
+            "Requirement already satisfied: python-dateutil>=2.8.2 in /usr/local/lib/python3.13/dist-packages (from pandas<4,>=1.5.3->streamlit) (2.9.0.post0)\n",
+            "Requirement already satisfied: pytz>=2020.1 in /usr/local/lib/python3.13/dist-packages (from pandas<4,>=1.5.3->streamlit) (2025.2)\n",
+            "Requirement already satisfied: tzdata>=2022.7 in /usr/local/lib/python3.13/dist-packages (from pandas<4,>=1.5.3->streamlit) (2026.6)\n",
+            "Requirement already satisfied: charset_normalizer<4,>=2 in /usr/local/lib/python3.13/dist-packages (from requests<3,>=2.27->streamlit) (3.4.9)\n",
+            "Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/local/lib/python3.13/dist-packages (from requests<3,>=2.27->streamlit) (2.5.0)\n",
+            "Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.13/dist-packages (from requests<3,>=2.27->streamlit) (2026.10.23)\n",
+            "Requirement already satisfied: h11>=0.8 in /usr/local/lib/python3.13/dist-packages (from uvicorn<1,>=0.30.0->streamlit) (0.16.0)\n",
+            "Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.13/dist-packages (from jinja2->altair!=5.4.0,!=5.4.1,<7,>=5.0.0->streamlit) (3.0.4)\n",
+            "Requirement already satisfied: attrs>=22.2.0 in /usr/local/lib/python3.13/dist-packages (from jsonschema>=3.0->altair!=5.4.0,!=5.4.1,<7,>=5.0.0->streamlit) (26.1.0)\n",
+            "Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /usr/local/lib/python3.13/dist-packages (from jsonschema>=3.0->altair!=5.4.0,!=5.4.1,<7,>=5.0.0->streamlit) (2025.9.1)\n",
+            "Requirement already satisfied: referencing>=0.28.4 in /usr/local/lib/python3.13/dist-packages (from jsonschema>=3.0->altair!=5.4.0,!=5.4.1,<7,>=5.0.0->streamlit) (0.37.0)\n",
+            "Requirement already satisfied: rpds-py>=0.25.0 in /usr/local/lib/python3.13/dist-packages (from jsonschema>=3.0->altair!=5.4.0,!=5.4.1,<7,>=5.0.0->streamlit) (2026.9.1)\n",
+            "Requirement already satisfied: six>=1.5 in /usr/local/lib/python3.13/dist-packages (from python-dateutil>=2.8.2->pandas<4,>=1.5.3->streamlit) (1.17.0)\n",
+            "Downloading streamlit-1.67.0-py3-none-any.whl (11.2 MB)\n",
+            "\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m11.2/11.2 MB\u001b[0m \u001b[31m23.6 MB/s\u001b[0m  \u001b[33m0:00:00\u001b[0m\n",
+            "\u001b[?25hDownloading pydeck-0.9.3-py2.py3-none-any.whl (11.4 MB)\n",
+            "\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m11.4/11.4 MB\u001b[0m \u001b[31m59.1 MB/s\u001b[0m  \u001b[33m0:00:00\u001b[0m\n",
+            "\u001b[?25hInstalling collected packages: pydeck, streamlit\n",
+            "\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m2/2\u001b[0m [streamlit]\n",
+            "\u001b[1A\u001b[2KSuccessfully installed pydeck-0.9.3 streamlit-1.67.0\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "2026-11-23 17:42:49.171 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.173 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.282 \n",
+            "  \u001b[33m\u001b[1mWarning:\u001b[0m to view this Streamlit app on a browser, run it with the following\n",
+            "  command:\n",
+            "\n",
+            "    streamlit run /usr/local/lib/python3.13/dist-packages/colab_kernel_launcher.py [ARGUMENTS]\n",
+            "2026-11-23 17:42:49.283 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.285 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.288 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.289 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.290 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.291 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.293 Session state does not function when running a script without `streamlit run`\n",
+            "2026-11-23 17:42:49.294 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.297 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.298 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.299 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.300 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.301 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.302 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.303 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.304 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.305 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.306 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.307 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.310 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.312 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.313 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.314 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.316 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.318 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.320 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.322 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.323 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.325 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.326 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.327 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.329 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.332 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.333 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.336 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.337 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.338 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.339 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.340 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+            "2026-11-23 17:42:49.341 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n"
+          ]
+        }
+      ],
+      "source": [
+        "\n",
+        "import random\n",
+        "\n",
+        "def guess_game():\n",
+        "    secret_number = random.randint(1, 100)\n",
+        "    attempts = 0\n",
+        "\n",
+        "    print(\"=== Number Guessing Game ===\")\n",
+        "    print(\"Guess a number between 1 and 100\")\n",
+        "\n",
+        "    while True:\n",
+        "        try:\n",
+        "            guess = int(input(\"Enter your guess: \"))\n",
+        "        except ValueError:\n",
+        "            print(\"Please enter a valid number.\")\n",
+        "            continue\n",
+        "\n",
+        "        if guess < 1 or guess > 100:\n",
+        "            print(\"Enter a number between 1 and 100.\")\n",
+        "            continue\n",
+        "\n",
+        "        attempts += 1\n",
+        "\n",
+        "        if guess < secret_number:\n",
+        "            print(\"Too low! Try a bigger number.\")\n",
+        "\n",
+        "        elif guess > secret_number:\n",
+        "            print(\"Too high! Try a smaller number.\")\n",
+        "\n",
+        "        else:\n",
+        "            print(f\"Correct! You won in {attempts} attempts.\")\n",
+        "            break\n",
+        "\n",
+        "if __name__ == \"__main__\":\n",
+        "    guess_game()\n"
+      ]
+    }
+  ]
+}
